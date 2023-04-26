@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-public class ContadorDisparos : MonoBehaviour
+public class ContadorDisparos : MonoBehaviour, IUpdates
 {
     public Text disparosHUD;
     public int disparos;
@@ -16,4 +16,16 @@ public class ContadorDisparos : MonoBehaviour
     }
 
 
+    public void UIUpdate()
+    {
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            disparos++;
+            ActualizarDisparos(disparos);
+        }
+    }
+
+    public void GameplayUpdate()
+    {
+    }
 }

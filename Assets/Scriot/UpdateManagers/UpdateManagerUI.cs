@@ -4,25 +4,28 @@ using UnityEngine;
 using System;
 public class UpdateManagerUI : MonoBehaviour
 {
-    [SerializeField] ContadorDisparos _contadorDisparos;
-    //[SerializeField] IUpdates[] Updates;
+    //[SerializeField] ContadorDisparos _contadorDisparos;
+    [SerializeField] private IUpdates[] Updates;
     
     void Start()
     {
        // UpdateManager.Instance.add(this);
-        Application.targetFrameRate = 60;
+        Application.targetFrameRate = 30;
+
+        Updates = GetComponents<IUpdates>();
+        
         //AddUpdate(new ContadorDisparos());
     }
 
     public void UpdateUI()
     {
-
+/*
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             _contadorDisparos.disparos++;
             _contadorDisparos.ActualizarDisparos(_contadorDisparos.disparos);
         }
-        /*
+     */   
         var Lenght = Updates.Length;
 
         for (int i = 0; i < Lenght; i++)
@@ -31,7 +34,7 @@ public class UpdateManagerUI : MonoBehaviour
 
 
         }
-        */
+        
     }
     /*
     public void AddUpdate(IUpdates newUpdate)
