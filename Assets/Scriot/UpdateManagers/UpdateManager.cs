@@ -7,10 +7,10 @@ public class UpdateManager : MonoBehaviour
 {
     private static UpdateManager instance = null;
 
-    private UpdateManagerGameplay[] _updateManagerGameplay;
+    [SerializeField]private UpdateManagerGameplay[] _updateManagerGameplay;
     private int _updateManagerGameplayIndex = 0;
 
-    private UpdateManagerUI[] _updateManagerUI;
+    [SerializeField]private UpdateManagerUI[] _updateManagerUI;
     private int _updateManagerUIIndex = 0;
 
     private UpdateManager() { }
@@ -27,26 +27,32 @@ public class UpdateManager : MonoBehaviour
 
     private void Awake()
     {
-        int updateGameplayLenght = GetComponents<UpdateManagerGameplay>().Length;
-        int updateUILenght = GetComponents<UpdateManagerGameplay>().Length;
-        
+        int updateGameplayLenght = FindObjectsOfType<UpdateManagerGameplay>().Length;
+        int updateUILenght = FindObjectsOfType<UpdateManagerUI>().Length;
+
         _updateManagerGameplay = new UpdateManagerGameplay[updateGameplayLenght];
         _updateManagerUI = new UpdateManagerUI[updateUILenght];
+        _updateManagerGameplay = FindObjectsOfType<UpdateManagerGameplay>();
+        _updateManagerUI = FindObjectsOfType<UpdateManagerUI>();
+
     }
 
-  
+    /*
 
-    public void add(UpdateManagerGameplay addUpdate)
-    {
-        _updateManagerGameplay[_updateManagerGameplayIndex] = addUpdate;
-        _updateManagerGameplayIndex++;
-    }
-    public void add(UpdateManagerUI addUpdate)
-    {
-        _updateManagerUI[_updateManagerUIIndex] = addUpdate;
-        _updateManagerUIIndex++;
-    }
+      public void add(UpdateManagerGameplay addUpdate)
+      {
+          Debug.Log("Entre");
+          _updateManagerGameplay[_updateManagerGameplayIndex] = addUpdate;
+          _updateManagerGameplayIndex++;
+          Debug.Log(addUpdate);
 
+      }
+      public void add(UpdateManagerUI addUpdate)
+      {
+          _updateManagerUI[_updateManagerUIIndex] = addUpdate;
+          _updateManagerUIIndex++;
+      }
+    */
     public void Remove(UpdateManagerGameplay addUpdate)
     {
         foreach (var Removed in _updateManagerGameplay)
@@ -71,22 +77,29 @@ public class UpdateManager : MonoBehaviour
     private void Update()
     {
         var gameplayLenght = _updateManagerGameplay.Length;
-        var UILenght = _updateManagerGameplay.Length;
-
+        var UILenght = _updateManagerUI.Length;
+       
         for (int i = 0; i < gameplayLenght; i++)
         {
-            if (_updateManagerGameplay[i].enabled)
+            if (_updateManagerGameplay[i] != null)
             {
-                _updateManagerGameplay[i].UpdateGameplay();
+                if (_updateManagerGameplay[i].enabled)
+                {
+                    _updateManagerGameplay[i].UpdateGameplay();
+                }
             }
         }
         
         for (int i = 0; i < UILenght; i++)
         {
-            if (_updateManagerUI[i].enabled)
+            if (_updateManagerGameplay[i] != null)
             {
-                _updateManagerUI[i].UpdateUI();
+                if (_updateManagerUI[i].enabled)
+                {
+                    _updateManagerUI[i].UpdateUI();
+                }
             }
         }
+        
     }
 }

@@ -1,16 +1,44 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System;
 public class UpdateManagerUI : MonoBehaviour
 {
-    // Start is called before the first frame update
+    [SerializeField] ContadorDisparos _contadorDisparos;
+    //[SerializeField] IUpdates[] Updates;
+    
     void Start()
     {
-        UpdateManager.Instance.add(this);
+       // UpdateManager.Instance.add(this);
+        Application.targetFrameRate = 60;
+        //AddUpdate(new ContadorDisparos());
     }
 
     public void UpdateUI()
     {
+
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            _contadorDisparos.disparos++;
+            _contadorDisparos.ActualizarDisparos(_contadorDisparos.disparos);
+        }
+        /*
+        var Lenght = Updates.Length;
+
+        for (int i = 0; i < Lenght; i++)
+        {
+            Updates[i].UIUpdate();
+
+
+        }
+        */
     }
+    /*
+    public void AddUpdate(IUpdates newUpdate)
+    {
+        int oldLength = Updates.Length;
+        Array.Resize(ref Updates, oldLength + 1);
+        Updates[oldLength] = newUpdate;
+    }
+    */
 }
