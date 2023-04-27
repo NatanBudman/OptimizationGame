@@ -1,57 +1,64 @@
 using System;
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
 public class GrillaManager : MonoBehaviour
 {
-    private Grilla _grilla;
-    
+    // InicializeGrilla
+    public Grilla _grilla;
     public int _width;
     public int _height;
-
-
     public Transform GrillaStartPos;
+    
+    // Grillas Created
+    [SerializeField] private List<Nodo[]> grillas = new List<Nodo[]>(50);
 
+    private int indexGrillas = 0;
+
+    
+    
+    
+    //Customo Grillas
     [Header("CustomGrilla")]
-    [SerializeField] private bool isCustomGrilla;
+    public bool isCustomGrilla;
     
     // Serializado 
-    [SerializeField] bool isGrillaVisible;
-    [SerializeField] Mesh GrillaMesh;
-    [SerializeField] Material[] Material;
+    public bool isGrillaVisible;
+    public Mesh GrillaMesh;
+    public Material[] Material;
 
+    public void create()
+     {
+         _grilla = new Grilla(_width,_height,GrillaStartPos);
+         
+         if (isCustomGrilla)
+         {
+             _grilla.CreateGrilla(GrillaMesh,Material,isGrillaVisible);
+         }
+         else
+         {
+             _grilla.CreateGrilla();
 
-     void OnValidate()
-    {
-        if (isCustomGrilla)
-        { 
-            
-        }
-        else
-        {
-            
-        }
-    }
+         }
+         grillas.Add(_grilla.GetGrilla());
 
-    void Start()
-    {
-        _grilla = new Grilla(_width,_height,GrillaStartPos);
-        if (isCustomGrilla)
-        {
-            _grilla.CreateGrilla(GrillaMesh,Material,isGrillaVisible);
-        }
-        else
-        {
-            _grilla.CreateGrilla();
-        }
+         Debug.Log(grillas.Count);
+     }
 
-    }
+     public void DeleteGrilla()
+     {
+         RemoveGrilla();
+     }
 
-    // Update is called once per frame
-    void Update()
-    {
+     private void RemoveGrilla()
+     {
+         
+         var _objetc = grillas[indexGrillas][0].gameObject.transform.parent.gameObject;
+         DestroyImmediate(_objetc); 
+         grillas.Remove(grillas[indexGrillas]);
 
-    }
+     }
 
     
 }
