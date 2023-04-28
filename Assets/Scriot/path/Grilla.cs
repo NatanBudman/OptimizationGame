@@ -44,7 +44,7 @@ public class Grilla
                 primitive.AddComponent<Nodo>();
                 
                 
-                grilla[grillasIndex] = primitive.AddComponent<Nodo>();
+                grilla[grillasIndex] = primitive.GetComponent<Nodo>();
                 grillasIndex++;
                 
                 primitive.transform.SetParent(parent.transform);
@@ -90,7 +90,7 @@ public class Grilla
                 }
 
                      
-                grilla[grillasIndex] = primitive.AddComponent<Nodo>();
+                grilla[grillasIndex] = primitive.GetComponent<Nodo>();
                 grillasIndex++;
 
                 //add positions
