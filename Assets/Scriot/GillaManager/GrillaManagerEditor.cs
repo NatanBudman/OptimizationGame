@@ -10,7 +10,7 @@ public class GrillaManagerEditor : Editor
       base.OnInspectorGUI();
 
       GrillaManager grilla = (GrillaManager)target;
-      GUILayout.Space(5);
+      
       if (GUILayout.Button("CreateGrilla"))
       {
          grilla.create();
@@ -19,6 +19,26 @@ public class GrillaManagerEditor : Editor
       if (GUILayout.Button("DeleteGrilla"))
       {
          grilla.DeleteGrilla();
+      }
+   }
+}
+[CustomEditor(typeof(Nodo)) ]
+public class NodoEditor : Editor
+{
+   public override void OnInspectorGUI()
+   {
+      base.OnInspectorGUI();
+
+      Nodo Nodo = (Nodo)target;
+      
+      if (GUILayout.Button("CreateObject"))
+      {
+         Nodo.CreateObject();
+      }
+      
+      if (GUILayout.Button("DeleteObject"))
+      {
+         Nodo.DeleteObject();
       }
    }
 }
