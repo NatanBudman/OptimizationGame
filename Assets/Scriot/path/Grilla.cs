@@ -37,6 +37,12 @@ public class Grilla
         // creo la grilla
         for (int x = 0; x < _width; x++)
         {
+            //Padre de la fila
+            GameObject parentFila = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            parentFila.name = (string)($"Fila:{x}");
+            parentFila.transform.SetParent(parent.transform);
+            parentFila.transform.position = startPos.position;
+
             for (int z = 0; z < _height; z++)
             {
                 Vector3 position = new Vector3(startPos.position.x + x, 0, startPos.position.z + z);
@@ -47,7 +53,7 @@ public class Grilla
                 grilla[grillasIndex] = primitive.GetComponent<Nodo>();
                 grillasIndex++;
                 
-                primitive.transform.SetParent(parent.transform);
+                primitive.transform.SetParent(parentFila.transform);
                 primitive.transform.position = position;
             }
         }
@@ -68,6 +74,11 @@ public class Grilla
         
         for (int x = 0; x < _width; x++)
         {
+            //Padre de la fila
+            GameObject parentFila = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            parentFila.name = (string)($"Fila:{x}");
+            parentFila.transform.SetParent(parent.transform);
+            parentFila.transform.position = startPos.position;
             for (int z = 0; z < _height; z++)
             {
                 Vector3 position = new Vector3(startPos.position.x + x , 0, startPos.position.z + z );
@@ -95,7 +106,7 @@ public class Grilla
 
                 //add positions
                          
-                primitive.transform.SetParent(parent.transform);
+                primitive.transform.SetParent(parentFila.transform);
                 primitive.transform.position = position;
             }
         }
