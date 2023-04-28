@@ -9,7 +9,7 @@ public class Nodo : MonoBehaviour
     public Nodo[] Neighbor = new Nodo[4];
     private int index = 0;
 
-    private bool isCheckNeighbor = false;
+    [SerializeField]private bool isCheckNeighbor = false;
     // Instance
     [Space(4)] [SerializeField] private GameObject InstanceObject;
     private GameObject ObjectCreate;
