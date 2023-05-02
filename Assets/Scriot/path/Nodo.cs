@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
@@ -30,10 +31,17 @@ public class Nodo : MonoBehaviour
     
     int _index = 0;
 
+    private void Start()
+    {
+        GetNeighborNodes();
+
+    }
+    
+
     public void GetNeighborNodes()
     {
          
-            if (!isCheckNeighbor)
+            if (!isCheckNeighbor && isWalkable)
             {
                 var lenght = directions.Length;
                 
@@ -42,12 +50,19 @@ public class Nodo : MonoBehaviour
                     RaycastHit hit;
                     Ray ray = new Ray(transform.position, directions[i]);
                
-                    if (Physics.Raycast(ray, out hit, 1.5f))
+                    if (Physics.Raycast(ray, out hit, 1.2f))
                     {
-                        if (hit.collider.gameObject.GetComponent<Nodo>().isWalkable)
+                        if (hit.collider != null)
                         {
-                            _index++;
+                            if (hit.collider.gameObject.GetComponent<Nodo>() != null )
+                            {
+                                if (hit.collider.gameObject.GetComponent<Nodo>().isWalkable == true)
+                                {
+                                    _index++;
+                                }
+                            }
                         }
+                      
                     }
 
                 }
@@ -59,15 +74,21 @@ public class Nodo : MonoBehaviour
                     RaycastHit hit2;
                     Ray ray2 = new Ray(transform.position, directions[j]);
                     
-                    if (Physics.Raycast(ray2, out hit2, 1.5f))
+                    if (Physics.Raycast(ray2, out hit2, 1.2f))
                     {
-                        if (hit2.collider.gameObject.GetComponent<Nodo>().isWalkable)
+                        if (hit2.collider != null)
                         {
-                            Neighbor[index] = hit2.collider.gameObject.GetComponent<Nodo>();
-                            index++;
+                            if (hit2.collider.gameObject.GetComponent<Nodo>() != null )
+                            {
+                                if (hit2.collider.gameObject.GetComponent<Nodo>().isWalkable == true)
+                                {
+                                    Neighbor[index] = hit2.collider.gameObject.GetComponent<Nodo>();
+                                    index++;
+                                }
+                            }
                         }
                     }
-                    
+                   
                 }
                 
                 isCheckNeighbor = true;
