@@ -12,6 +12,19 @@ public class UpdateManager : MonoBehaviour
 
     [SerializeField]private UpdateManagerUI[] _updateManagerUI;
     private int _updateManagerUIIndex = 0;
+    
+    [Header("FPS")]
+    public int GameplaFps = 60;
+    public int UIFps = 30;
+
+    private float GameplaytimePerFrame;
+    private float UItimePerFrame;
+    
+    
+    private float GameplaynextTime = 0;
+    private float UInextTime = 0;
+    
+    
 
     private UpdateManager() { }
 
@@ -35,6 +48,12 @@ public class UpdateManager : MonoBehaviour
         _updateManagerGameplay = FindObjectsOfType<UpdateManagerGameplay>();
         _updateManagerUI = FindObjectsOfType<UpdateManagerUI>();
 
+    }
+
+    private void Start()
+    {
+        GameplaytimePerFrame = 1f / GameplaFps;
+        UItimePerFrame = 1f / UIFps;
     }
 
     /*
@@ -78,28 +97,43 @@ public class UpdateManager : MonoBehaviour
     {
         var gameplayLenght = _updateManagerGameplay.Length;
         var UILenght = _updateManagerUI.Length;
-       
-        for (int i = 0; i < gameplayLenght; i++)
+
+
+        if (Time.time < GameplaFps)
         {
-            if (_updateManagerGameplay[i] != null)
+            for (int i = 0; i < gameplayLenght; i++)
             {
-                if (_updateManagerGameplay[i].enabled)
+                if (_updateManagerGameplay[i] != null)
                 {
-                    _updateManagerGameplay[i].UpdateGameplay();
+                    if (_updateManagerGameplay[i].gameObject.activeInHierarchy)
+                    {
+                        _updateManagerGameplay[i].UpdateGameplay();
+                    }
+                }
+
+            }
+            
+            GameplaynextTime += GameplaytimePerFrame;
+
+        }
+
+
+        if (Time.time < UIFps)
+        {
+            for (int i = 0; i < UILenght; i++)
+            {
+                if (_updateManagerGameplay[i] != null)
+                {
+                    if (_updateManagerUI[i].gameObject.activeInHierarchy)
+                    {
+                        _updateManagerUI[i].UpdateUI();
+                    }
+
                 }
             }
+            UInextTime += UItimePerFrame;
         }
-        
-        for (int i = 0; i < UILenght; i++)
-        {
-            if (_updateManagerGameplay[i] != null)
-            {
-                if (_updateManagerUI[i].enabled)
-                {
-                    _updateManagerUI[i].UpdateUI();
-                }
-            }
-        }
+
         
     }
 }

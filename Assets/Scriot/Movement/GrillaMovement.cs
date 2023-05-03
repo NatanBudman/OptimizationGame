@@ -7,27 +7,48 @@ using Random = UnityEngine.Random;
 public class GrillaMovement : MonoBehaviour
 {
     public Nodo StartNodo;
-    private Nodo _currentNodo;
+    [SerializeField]private Nodo _currentNodo;
 
     private void GetNeighborNodes()
     {
         _currentNodo.GetNeighborNodes();
     }
 
+    private void Awake()
+    {
+        GetInitialNodo();
+        _currentNodo = StartNodo;
+    }
+
     private void Start()
     {
-        _currentNodo = StartNodo;
         GetNeighborNodes();
+
+    }
+
+    private void GetInitialNodo()
+    {
+        RaycastHit hit;
+        Ray ray = new Ray(transform.position, Vector3.down);
+        
+             
+        if (Physics.Raycast(ray, out hit, 1f))
+        {
+            if (hit.collider.gameObject.GetComponent<Nodo>().isWalkable)
+            {
+                StartNodo = hit.collider.gameObject.GetComponent<Nodo>();
+            }
+        }
     }
 
     public Transform IAGrillaMove()
     {
-        GetNeighborNodes();
+       GetNeighborNodes();
         
         Transform _nodoPos = default;
         
         int lenght = _currentNodo.Neighbor.Length;
-        int random = Random.Range(0, lenght);
+        int random = Random.Range(0, lenght - 1);
         
         Nodo newcurr = _currentNodo.Neighbor[random];
         

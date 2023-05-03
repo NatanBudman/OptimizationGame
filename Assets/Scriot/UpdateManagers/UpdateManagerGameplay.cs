@@ -11,10 +11,7 @@ public class UpdateManagerGameplay : MonoBehaviour
     void Start()
     {
        // UpdateManager.Instance.add(this)  ;
-         Application.targetFrameRate = 60;
-         
          Updates = GetComponents<IUpdates>();
-
     }
 
  
