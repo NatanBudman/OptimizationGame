@@ -39,11 +39,6 @@ public class SpawnManager : MonoBehaviour, IUpdates
 
     public void GameplayUpdate()
     {
-        
-    }
-
-    private void Update()
-    {
         // pasar esto cuando el UpdateGameplay esta puesto en escena
         _CurrentEnemieInstantiate += Time.deltaTime;
         if (_CurrentEnemieInstantiate > CoolwdownEnemieInstantiate)
@@ -53,8 +48,13 @@ public class SpawnManager : MonoBehaviour, IUpdates
                 EnemySpawns[random].transform.position.y + 1f, EnemySpawns[random].transform.position.z);
             
             GameObject InstantiateOBJ = Instantiate(Enemies, pos, Quaternion.identity);
-          //  InstantiateOBJ.GetComponent<GrillaMovement>().StartNodo = EnemySpawns[random];
+            //  InstantiateOBJ.GetComponent<GrillaMovement>().StartNodo = EnemySpawns[random];
             _CurrentEnemieInstantiate = 0;
         }
+    }
+
+    private void Update()
+    {
+        
     }
 }
