@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IAController : MonoBehaviour
+public class IAController : MonoBehaviour,IUpdates
 {
     [SerializeField] private GrillaMovement Movement;
     [SerializeField] private Rigidbody _rb;
@@ -18,9 +18,6 @@ public class IAController : MonoBehaviour
 
     public Weapons Weapons;
 
-    // Start is called before the first frame update
-   
-
     private Vector3 newdirection;
 
     private void Start()
@@ -30,8 +27,23 @@ public class IAController : MonoBehaviour
 
     }
 
-    // Update is called once per frame
-    void Update()
+
+    private void Look(Vector3 target, Transform origin)
+    {
+        Vector3 direction = target.normalized - origin.position;
+        direction.x = 0;
+        direction.z = 0;
+        Quaternion rotation = Quaternion.LookRotation(direction);
+        transform.rotation = rotation;
+    }
+
+
+    public void UIUpdate()
+    {
+        
+    }
+
+    public void GameplayUpdate()
     {
         CurrentMove += Time.deltaTime;
 
@@ -50,18 +62,5 @@ public class IAController : MonoBehaviour
 
             _rb.MovePosition(newPosition);
         }
-
     }
-
-    private void Look(Vector3 target, Transform origin)
-    {
-        Vector3 direction = target.normalized - origin.position;
-        direction.x = 0;
-        direction.z = 0;
-        Quaternion rotation = Quaternion.LookRotation(direction);
-        transform.rotation = rotation;
-    }
-
- 
-
 }

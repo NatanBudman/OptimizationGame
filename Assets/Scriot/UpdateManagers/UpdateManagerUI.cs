@@ -10,7 +10,6 @@ public class UpdateManagerUI : MonoBehaviour
     void Start()
     {
        // UpdateManager.Instance.add(this);
-        Application.targetFrameRate = 30;
 
         Updates = GetComponents<IUpdates>();
         
