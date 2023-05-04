@@ -8,10 +8,14 @@ public class UpdateManagerGameplay : MonoBehaviour
     //[SerializeField] Shooter _shooter;
     //[SerializeField] PlayerController _playerController;
      private IUpdates[] Updates;
+     
+     private UpdateManager _manager;
     void Start()
     {
-       // UpdateManager.Instance.add(this)  ;
+        _manager = FindObjectOfType<UpdateManager>();
          Updates = GetComponents<IUpdates>();
+         Debug.Log(_manager);
+         _manager.AddManagers(this.gameObject.GetComponent<UpdateManagerGameplay>());
     }
 
  
@@ -23,8 +27,6 @@ public class UpdateManagerGameplay : MonoBehaviour
          for (int i = 0; i < Lenght; i++)
          {
              Updates[i].GameplayUpdate();
-
-
          }
         
     }

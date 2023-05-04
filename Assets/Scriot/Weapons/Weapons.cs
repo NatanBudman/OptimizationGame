@@ -9,10 +9,22 @@ public class Weapons : MonoBehaviour
 
     public BulletPool Pool;
 
+    public float FireRate;
+    private float currentFireRate;
+
     public void Shoot()
     {
-        SpawnBullet();
+        currentFireRate += Time.deltaTime;
+
+        if (currentFireRate > FireRate)
+        {
+            SpawnBullet();
+            
+            currentFireRate = 0;
+        }
     }
+    
+    
 // El tipo de bala se define por el tipo de pool que le pongas
     void SpawnBullet()
     {

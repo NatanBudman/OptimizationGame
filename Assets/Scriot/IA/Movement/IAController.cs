@@ -6,6 +6,12 @@ using UnityEngine;
 public class IAController : MonoBehaviour,IUpdates
 {
     [SerializeField] private GrillaMovement Movement;
+    [SerializeField] private IAModel _model;
+    
+    [Space]
+    [Space]
+    
+    [Header("Movement")]
     [SerializeField] private Rigidbody _rb;
 
     [SerializeField] private float CooldownMov;
@@ -13,13 +19,20 @@ public class IAController : MonoBehaviour,IUpdates
 
     private float CurrentMove;
     
-    
+    [Space]
+    [Space]
     //shoot
-
+    [Header("Weapon")]
     public Weapons Weapons;
 
     private Vector3 newdirection;
+    
+    
 
+    
+    // States
+    private bool isPatrol = true;
+    private bool isPlayerDetected = false;
 
     [Header("Detection")] 
     public int maxDectionEntiti = 3;
@@ -36,17 +49,6 @@ public class IAController : MonoBehaviour,IUpdates
 
     }
 
-
-    private void Look(Vector3 target, Transform origin)
-    {
-        Vector3 direction = target.normalized - origin.position;
-        Quaternion rotation = Quaternion.LookRotation(direction);
-        rotation.z = 0;
-        rotation.x = 0;
-        transform.rotation = rotation;
-    }
-
-
     public void UIUpdate()
     {
         
@@ -54,26 +56,47 @@ public class IAController : MonoBehaviour,IUpdates
 
     public void GameplayUpdate()
     {
-        Move();
+        if (isPlayerDetected)
+        {
+            isPatrol = false;
+        }
+        
+        if (isPatrol)
+        {
+             Move();
+        }
+
+        
         Detection();
+        
     }
 
     void Move()
     {
         CurrentMove += Time.deltaTime;
+
+        
+        
         if (CurrentMove > CooldownMov)
         {
             newdirection = Movement.IAGrillaMove().position;
-            //Look(newdirection, transform);
             CurrentMove = 0;
         }
 
         if (transform.position != newdirection)
         {
-            Vector3 direction = (newdirection - transform.position).normalized;
-            Vector3 newPosition = transform.position + direction * speed * Time.fixedDeltaTime;
+            if (_model.isSeeNodo(Movement._currentNodo.gameObject))
+            {
+                Vector3 direction = (newdirection - transform.position).normalized;
+                Vector3 newPosition = transform.position + direction * speed * Time.fixedDeltaTime;
 
-            _rb.MovePosition(newPosition);
+                _rb.MovePosition(newPosition);
+            }
+            else
+            {
+                _model.Look(newdirection, transform);
+            }
+
         }
     }
 
@@ -85,7 +108,6 @@ public class IAController : MonoBehaviour,IUpdates
     void InicializeDetection()
     {
         _detectionColliders = new EntitiDetectionColliders(transform, LayerTarget, LayerObstacle, radius, angle ,maxDectionEntiti);
-       
     }
 
     void Detection()
@@ -95,13 +117,19 @@ public class IAController : MonoBehaviour,IUpdates
 
         if (entiti != null)
         {
+            isPlayerDetected = true;
+            
             Shoot();
 
-            Look(entiti.transform.position,transform);
         }
-        
+        else
+        {
+            isPatrol = true;
+            isPlayerDetected = false;
+        }
+
     }
-    
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.blue;
