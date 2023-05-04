@@ -7,7 +7,7 @@ using Random = UnityEngine.Random;
 public class GrillaMovement : MonoBehaviour
 {
     public Nodo StartNodo;
-    [SerializeField]private Nodo _currentNodo;
+    public Nodo _currentNodo;
 
     private void GetNeighborNodes()
     {
