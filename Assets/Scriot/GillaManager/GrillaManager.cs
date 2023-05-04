@@ -11,7 +11,7 @@ public class GrillaManager : MonoBehaviour
     public int _height;
     public Transform GrillaStartPos;
     
-    // Grillas Created
+    // Grilla Created
     [SerializeField] private List<Nodo[]> grillas = new List<Nodo[]>(50);
 
     private int indexGrillas = 0;
@@ -19,7 +19,7 @@ public class GrillaManager : MonoBehaviour
     
     
     
-    //Customo Grillas
+    //Custom Grilla
     [Header("CustomGrilla")]
     public bool isCustomGrilla;
     
