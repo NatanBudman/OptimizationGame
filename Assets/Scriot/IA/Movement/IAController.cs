@@ -20,10 +20,19 @@ public class IAController : MonoBehaviour,IUpdates
 
     private Vector3 newdirection;
 
+
+    [Header("Detection")] 
+    public int maxDectionEntiti = 3;
+    public float angle;
+    public float radius;
+    public LayerMask LayerTarget;
+    public LayerMask LayerObstacle;
+    private EntitiDetectionColliders _detectionColliders;
+
     private void Start()
     {
+        InicializeDetection();
         newdirection = Movement.StartNodo.transform.position;
-        Look(newdirection, transform);
 
     }
 
@@ -31,9 +40,9 @@ public class IAController : MonoBehaviour,IUpdates
     private void Look(Vector3 target, Transform origin)
     {
         Vector3 direction = target.normalized - origin.position;
-        direction.x = 0;
-        direction.z = 0;
         Quaternion rotation = Quaternion.LookRotation(direction);
+        rotation.z = 0;
+        rotation.x = 0;
         transform.rotation = rotation;
     }
 
@@ -45,13 +54,17 @@ public class IAController : MonoBehaviour,IUpdates
 
     public void GameplayUpdate()
     {
-        CurrentMove += Time.deltaTime;
+        Move();
+        Detection();
+    }
 
+    void Move()
+    {
+        CurrentMove += Time.deltaTime;
         if (CurrentMove > CooldownMov)
         {
             newdirection = Movement.IAGrillaMove().position;
-            Weapons.Shoot();
-            Look(newdirection, transform);
+            //Look(newdirection, transform);
             CurrentMove = 0;
         }
 
@@ -62,5 +75,44 @@ public class IAController : MonoBehaviour,IUpdates
 
             _rb.MovePosition(newPosition);
         }
+    }
+
+    void Shoot()
+    {
+        Weapons.Shoot();
+    }
+
+    void InicializeDetection()
+    {
+        _detectionColliders = new EntitiDetectionColliders(transform, LayerTarget, LayerObstacle, radius, angle ,maxDectionEntiti);
+       
+    }
+
+    void Detection()
+    {
+        
+        GameObject entiti = _detectionColliders.GetEntiti();
+
+        if (entiti != null)
+        {
+            Shoot();
+
+            Look(entiti.transform.position,transform);
+        }
+        
+    }
+    
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position, radius);
+        Gizmos.color = Color.red;
+
+        Gizmos.DrawRay(transform.position, Quaternion.Euler(0, angle / 2, 0) * transform.forward * radius);
+        Gizmos.DrawRay(transform.position, Quaternion.Euler(0, -angle / 2, 0) * transform.forward * radius);
+        
+  
+        
+     
     }
 }
