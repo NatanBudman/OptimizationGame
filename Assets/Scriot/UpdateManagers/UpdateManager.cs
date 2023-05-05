@@ -5,13 +5,9 @@ using UnityEngine;
 
 public class UpdateManager : MonoBehaviour
 {
-    private static UpdateManager instance = null;
+    [SerializeField]private List<UpdateManagerGameplay> _updateManagerGameplay;
 
-    [SerializeField]private UpdateManagerGameplay[] _updateManagerGameplay;
-    private int _updateManagerGameplayIndex = 0;
-
-    [SerializeField]private UpdateManagerUI[] _updateManagerUI;
-    private int _updateManagerUIIndex = 0;
+    [SerializeField]private List<UpdateManagerUI> _updateManagerUI;
     
     [Header("FPS")]
     public int GameplaFps = 60;
@@ -24,79 +20,44 @@ public class UpdateManager : MonoBehaviour
     private float GameplaynextTime = 0;
     private float UInextTime = 0;
     
-    
 
-    private UpdateManager() { }
-
-    public static UpdateManager Instance
-    {
-        get {
-            if (instance == null) {
-                instance = new UpdateManager();
-            }
-            return instance;
-        }
-    }
 
     private void Awake()
     {
-        int updateGameplayLenght = FindObjectsOfType<UpdateManagerGameplay>().Length;
-        int updateUILenght = FindObjectsOfType<UpdateManagerUI>().Length;
+        _updateManagerGameplay = new List<UpdateManagerGameplay>(100);
+        _updateManagerUI = new List<UpdateManagerUI>(100);
+    }
 
-        _updateManagerGameplay = new UpdateManagerGameplay[updateGameplayLenght];
-        _updateManagerUI = new UpdateManagerUI[updateUILenght];
-        _updateManagerGameplay = FindObjectsOfType<UpdateManagerGameplay>();
-        _updateManagerUI = FindObjectsOfType<UpdateManagerUI>();
+    public void AddManagers(UpdateManagerGameplay gameplay)
+    {
+        _updateManagerGameplay.Add(gameplay);
+    }
+    public void AddManagers(UpdateManagerUI UI)
+    {
+        _updateManagerUI.Add(UI);
+    }
+    public void RemovedManager(UpdateManagerGameplay gameplay)
+    {
+        _updateManagerGameplay.Remove(gameplay);
 
+    }
+    public void RemovedManager(UpdateManagerUI UI)
+    {
+        _updateManagerUI.Remove(UI);
     }
 
     private void Start()
     {
+     
+        
         GameplaytimePerFrame = 1f / GameplaFps;
         UItimePerFrame = 1f / UIFps;
     }
 
-    /*
-
-      public void add(UpdateManagerGameplay addUpdate)
-      {
-          Debug.Log("Entre");
-          _updateManagerGameplay[_updateManagerGameplayIndex] = addUpdate;
-          _updateManagerGameplayIndex++;
-          Debug.Log(addUpdate);
-
-      }
-      public void add(UpdateManagerUI addUpdate)
-      {
-          _updateManagerUI[_updateManagerUIIndex] = addUpdate;
-          _updateManagerUIIndex++;
-      }
-    */
-    public void Remove(UpdateManagerGameplay addUpdate)
-    {
-        foreach (var Removed in _updateManagerGameplay)
-        {
-            if (Removed == addUpdate)
-            {
-                Removed.enabled = false;
-            }
-        }
-    }
-    public void Remove(UpdateManagerUI addUpdate)
-    {
-        foreach (var Removed in _updateManagerUI)
-        {
-            if (Removed == addUpdate)
-            {
-                Removed.enabled = false;
-            }
-        }
-    }
-
     private void Update()
     {
-        var gameplayLenght = _updateManagerGameplay.Length;
-        var UILenght = _updateManagerUI.Length;
+        var gameplayLenght = _updateManagerGameplay.Count;
+        var UILenght = _updateManagerUI.Count;
 
 
         if (Time.time < GameplaFps)

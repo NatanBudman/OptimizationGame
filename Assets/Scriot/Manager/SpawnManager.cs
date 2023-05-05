@@ -52,9 +52,5 @@ public class SpawnManager : MonoBehaviour, IUpdates
             _CurrentEnemieInstantiate = 0;
         }
     }
-
-    private void Update()
-    {
-        
-    }
+    
 }
