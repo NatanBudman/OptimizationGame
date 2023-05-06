@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-  
+    [SerializeField] private List<int> _layerMasks;
     public Rigidbody _rb;
 
     #region ScriptableObject
@@ -47,5 +47,20 @@ public class Bullet : MonoBehaviour
 
         _rb.MovePosition(transform.position + movement);
         
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (_layerMasks.Contains(collision.gameObject.layer))
+        {
+            HealthController heatlh = collision.collider.GetComponent<HealthController>();
+            heatlh.Damage(_Damage);
+            Debug.Log(heatlh._currentLife);
+            Pool.ReturnBulletToPool(this.gameObject);
+        }else if (!_layerMasks.Contains(collision.gameObject.layer) && collision.collider.gameObject != this.gameObject)
+        {
+            Debug.Log(collision.collider.name);
+            Pool.ReturnBulletToPool(this.gameObject);
+        }
     }
 }
