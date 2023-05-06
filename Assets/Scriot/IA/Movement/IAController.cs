@@ -27,7 +27,8 @@ public class IAController : MonoBehaviour,IUpdates
     public Weapons Weapons;
 
     private Vector3 newdirection;
-    
+
+    private EnemyPool Pool;
     private void Start()
     {
         newdirection = Movement.StartNodo.transform.position;
@@ -83,6 +84,16 @@ public class IAController : MonoBehaviour,IUpdates
 
         }
     }
+    void OnCollisionEnter(Collision collision)
+    {
+     
+        if (collision.gameObject.CompareTag("Proyectil"))
+        {
+         
+            gameObject.SetActive(false);
 
-   
+            Pool.ReturnObject(gameObject);
+        }
+    }
+
 }
