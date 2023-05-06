@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,11 +13,29 @@ public class Weapons : MonoBehaviour
     public float FireRate;
     private float currentFireRate;
 
-    public void Shoot()
+    private void Start()
     {
-        currentFireRate += Time.deltaTime;
+        Pool = FindObjectOfType<BulletPool>();
+    }
+
+    public bool isCanShoot()
+    {
+        if (currentFireRate < FireRate + 1) currentFireRate += Time.deltaTime;
 
         if (currentFireRate > FireRate)
+        {
+            SpawnBullet();
+            
+            currentFireRate = 0;
+        }
+
+        return currentFireRate > FireRate;
+    }
+
+    public void Shoot()
+    {
+
+        if (isCanShoot())
         {
             SpawnBullet();
             

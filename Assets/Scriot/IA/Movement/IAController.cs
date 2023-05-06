@@ -21,30 +21,15 @@ public class IAController : MonoBehaviour,IUpdates
     
     [Space]
     [Space]
+    
     //shoot
     [Header("Weapon")]
     public Weapons Weapons;
 
     private Vector3 newdirection;
     
-    
-
-    
-    // States
-    private bool isPatrol = true;
-    private bool isPlayerDetected = false;
-
-    [Header("Detection")] 
-    public int maxDectionEntiti = 3;
-    public float angle;
-    public float radius;
-    public LayerMask LayerTarget;
-    public LayerMask LayerObstacle;
-    private EntitiDetectionColliders _detectionColliders;
-
     private void Start()
     {
-        InicializeDetection();
         newdirection = Movement.StartNodo.transform.position;
 
     }
@@ -56,19 +41,9 @@ public class IAController : MonoBehaviour,IUpdates
 
     public void GameplayUpdate()
     {
-        if (isPlayerDetected)
-        {
-            isPatrol = false;
-        }
-        
-        if (isPatrol)
-        {
-             Move();
-        }
+        Move();
 
-        
-        Detection();
-        
+        Shoot();
     }
 
     void Move()
@@ -102,45 +77,12 @@ public class IAController : MonoBehaviour,IUpdates
 
     void Shoot()
     {
-        Weapons.Shoot();
-    }
-
-    void InicializeDetection()
-    {
-        _detectionColliders = new EntitiDetectionColliders(transform, LayerTarget, LayerObstacle, radius, angle ,maxDectionEntiti);
-    }
-
-    void Detection()
-    {
-        
-        GameObject entiti = _detectionColliders.GetEntiti();
-
-        if (entiti != null)
+        if (Weapons.isCanShoot())
         {
-            isPlayerDetected = true;
-            
-            Shoot();
+            Weapons.Shoot();
 
         }
-        else
-        {
-            isPatrol = true;
-            isPlayerDetected = false;
-        }
-
     }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(transform.position, radius);
-        Gizmos.color = Color.red;
-
-        Gizmos.DrawRay(transform.position, Quaternion.Euler(0, angle / 2, 0) * transform.forward * radius);
-        Gizmos.DrawRay(transform.position, Quaternion.Euler(0, -angle / 2, 0) * transform.forward * radius);
-        
-  
-        
-     
-    }
+   
 }
