@@ -7,10 +7,11 @@ public class IAController : MonoBehaviour,IUpdates
 {
     [SerializeField] private GrillaMovement Movement;
     [SerializeField] private IAModel _model;
-    
+
     [Space]
     [Space]
-    
+
+    public EnemyPool pool;
     [Header("Movement")]
     [SerializeField] private Rigidbody _rb;
 
@@ -56,6 +57,7 @@ public class IAController : MonoBehaviour,IUpdates
 
     public void GameplayUpdate()
     {
+
         if (isPlayerDetected)
         {
             isPatrol = false;
@@ -99,7 +101,15 @@ public class IAController : MonoBehaviour,IUpdates
 
         }
     }
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Proyectil"))
+        {
+            gameObject.SetActive(false);
 
+            pool.ReturnObject(gameObject);
+        }
+    }
     void Shoot()
     {
         Weapons.Shoot();

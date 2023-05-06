@@ -11,6 +11,7 @@ public class SpawnStack : MonoBehaviour
 
     private List<GameObject> enemyPool;
 
+    /*
     private void Start()
     {
         enemyPool = new List<GameObject>();
@@ -55,9 +56,9 @@ public class SpawnStack : MonoBehaviour
         enemyPool.Add(newEnemy);
 
         return newEnemy;
-    }
+    }*/
 
-    /*
+    
 
      private Stack<GameObject> enemyStack;
 
@@ -90,5 +91,5 @@ public class SpawnStack : MonoBehaviour
          GameObject newEnemy = Instantiate(enemyPrefab, transform.position, Quaternion.identity);
          enemyStack.Push(newEnemy);
      }
-    */
+    
 }

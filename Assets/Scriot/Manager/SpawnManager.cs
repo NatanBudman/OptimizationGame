@@ -26,10 +26,16 @@ public class SpawnManager : MonoBehaviour, IUpdates
     public float CoolwdownEnemieInstantiate;
     private float _CurrentEnemieInstantiate;
 
-//[]
+    public EnemyPool enemyPool;
+
+
+    //[]
     void Start()
     {
         _CurrentEnemies = EnemyCount;
+
+        enemyPool = GetComponent<EnemyPool>();
+
     }
 
     public void UIUpdate()
@@ -46,8 +52,21 @@ public class SpawnManager : MonoBehaviour, IUpdates
             var random = Random.Range(0, EnemySpawns.Length);
             Vector3 pos = new Vector3(EnemySpawns[random].transform.position.x,
                 EnemySpawns[random].transform.position.y + 1f, EnemySpawns[random].transform.position.z);
-            
-            GameObject InstantiateOBJ = Instantiate(Enemies, pos, Quaternion.identity);
+
+            GameObject instantiatedEnemy = enemyPool.GetPooledEnemy();
+            if (instantiatedEnemy != null)
+            {
+                instantiatedEnemy.transform.position = pos;
+                instantiatedEnemy.SetActive(true);
+            }
+            else
+            {
+
+                //tendriamos q poner la derrota
+                Debug.Log("no mas enemigos");
+            }
+
+            //GameObject InstantiateOBJ = Instantiate(Enemies, pos, Quaternion.identity);
             //  InstantiateOBJ.GetComponent<GrillaMovement>().StartNodo = EnemySpawns[random];
             _CurrentEnemieInstantiate = 0;
         }
