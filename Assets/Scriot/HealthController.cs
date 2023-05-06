@@ -1,12 +1,17 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class HealthController : MonoBehaviour
 {
-    public int Life;
-    private int _currentLife;
+    public int Life = 1;
+    public int _currentLife;
 
+    private void Start()
+    {
+        _currentLife = Life;
+    }
 
     public void Damage(int damage)
     {

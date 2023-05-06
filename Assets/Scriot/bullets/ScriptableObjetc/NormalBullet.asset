@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: NormalBullet
   m_EditorClassIdentifier: 
   Speed: 5
-  Damage: 0
+  Damage: 1
   DisableTimer: 4
