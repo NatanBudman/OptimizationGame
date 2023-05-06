@@ -49,7 +49,7 @@ GameObject:
   - component: {fileID: 9208155894081227680}
   - component: {fileID: 1885044278}
   - component: {fileID: 393877206119614626}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: IA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -164,6 +164,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Movement: {fileID: 9208155894081227682}
   _model: {fileID: 393877206119614626}
+  pool: {fileID: 0}
   _rb: {fileID: 9208155894081227680}
   CooldownMov: 5
   speed: 1

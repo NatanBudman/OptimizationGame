@@ -25,17 +25,21 @@ public class SpawnManager : MonoBehaviour, IUpdates
     [Space(2)]
     public float CoolwdownEnemieInstantiate;
     private float _CurrentEnemieInstantiate;
+    public bool IsMaxEntities;
+    [SerializeField] private Collider[] _colliders;
+    [SerializeField] private LayerMask _layerMask;
+    [SerializeField] private float _radius;
 
     public EnemyPool enemyPool;
 
-
+    int maxEntities = 4;
     //[]
     void Start()
     {
         _CurrentEnemies = EnemyCount;
 
         enemyPool = GetComponent<EnemyPool>();
-
+        _colliders = new Collider[maxEntities];
     }
 
     public void UIUpdate()
@@ -44,6 +48,18 @@ public class SpawnManager : MonoBehaviour, IUpdates
     }
 
     public void GameplayUpdate()
+    {
+        int countObstacle = Physics.OverlapSphereNonAlloc(transform.position, _radius, _colliders, _layerMask);
+        if (countObstacle < 3)
+        {
+            Spawner();
+        }
+        for (int i = 0; i < countObstacle; i++)
+        { }
+
+    }
+
+    public void Spawner()
     {
         // pasar esto cuando el UpdateGameplay esta puesto en escena
         _CurrentEnemieInstantiate += Time.deltaTime;
@@ -71,5 +87,4 @@ public class SpawnManager : MonoBehaviour, IUpdates
             _CurrentEnemieInstantiate = 0;
         }
     }
-    
 }
