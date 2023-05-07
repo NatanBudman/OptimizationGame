@@ -89,10 +89,9 @@ public class IAController : MonoBehaviour,IUpdates
      
         if (collision.gameObject.CompareTag("Proyectil"))
         {
-         
-            gameObject.SetActive(false);
-
-            Pool.ReturnObject(gameObject);
+            GameObject poolEnemies = GameObject.Find("EnemyPool");
+            EnemyPool enemyPool = poolEnemies.GetComponent<EnemyPool>();
+            enemyPool.ReturnObject(gameObject);
         }
     }
 

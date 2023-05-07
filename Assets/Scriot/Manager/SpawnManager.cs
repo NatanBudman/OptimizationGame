@@ -38,8 +38,10 @@ public class SpawnManager : MonoBehaviour, IUpdates
     {
         _CurrentEnemies = EnemyCount;
 
-        enemyPool = GetComponent<EnemyPool>();
         _colliders = new Collider[maxEntities];
+
+        GameObject poolEnemies = GameObject.Find("EnemyPool");
+        EnemyPool enemyPool = poolEnemies.GetComponent<EnemyPool>();
     }
 
     public void UIUpdate()
@@ -69,18 +71,10 @@ public class SpawnManager : MonoBehaviour, IUpdates
             Vector3 pos = new Vector3(EnemySpawns[random].transform.position.x,
                 EnemySpawns[random].transform.position.y + 1f, EnemySpawns[random].transform.position.z);
 
-            GameObject instantiatedEnemy = enemyPool.GetPooledEnemy();
-            if (instantiatedEnemy != null)
-            {
+            GameObject instantiatedEnemy = enemyPool.GetPooledEnemy();           
                 instantiatedEnemy.transform.position = pos;
-                instantiatedEnemy.SetActive(true);
-            }
-            else
-            {
-
-                //tendriamos q poner la derrota
-                Debug.Log("no mas enemigos");
-            }
+            
+          
 
             //GameObject InstantiateOBJ = Instantiate(Enemies, pos, Quaternion.identity);
             //  InstantiateOBJ.GetComponent<GrillaMovement>().StartNodo = EnemySpawns[random];
