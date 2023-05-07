@@ -5,50 +5,70 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour, IUpdates
 {
     [Header("Mov") ]
-    public float _speedRotate;
     public Rigidbody rb;
     public float speed = 5f;
+    [SerializeField] private float rotationSpeed = 180f;
     public float smoothTime = 0.3f;
-    private Vector3 velocity = Vector3.zero;
-    
+    public float fireRate = 1f;
+    private float currentFireRate;
+    [SerializeField] Transform playerSpawn;
     [Header("Shoot") ]
     [ SerializeField]private Shooter _shooter;
+    private Vector3 direction = Vector3.zero;  
+
+
 
     private void Start()
     {
+        //caching, este rigidboy lo utilizo varias veces en la funcion Move
         rb = GetComponent<Rigidbody>();
+
+
+        currentFireRate = fireRate;
     }
  
 
-    public void MouseRotation()
-    {
-        float horizontal = Input.GetAxis("Mouse X");
-
-        transform.Rotate(0, horizontal * _speedRotate * Time.deltaTime, 0);
-
-    }
-
+ 
     private void Move()
-    {
-        /*
-        float horizontalInput = Input.GetAxis("Horizontal");
-        float verticalInput = Input.GetAxis("Vertical");
-
-        Vector3 direction = new Vector3(horizontalInput, 0f, verticalInput).normalized;
-
-        rb.MovePosition(transform.position + direction * moveSpeed * Time.fixedDeltaTime);
-        */
+    {       
         var horizontal = Input.GetAxis("Horizontal");  // valor de entrada horizontal
         var vertical = Input.GetAxis("Vertical");  // valor de entrada vertical
- 
-// obtener la dirección de movimiento basada en la rotación del objeto
-        var movement = transform.forward * vertical + transform.right * horizontal;
- 
-// normalizar la dirección y multiplicar por la velocidad para obtener la velocidad del movimiento
-        movement = movement.normalized * speed;
- 
-// mover el objeto usando rb.MovePosition()
-        rb.MovePosition(rb.position + movement * Time.deltaTime);
+
+        //lazy computation, solamente actualizo la direccion si hay entrada de movimiento
+        if (horizontal != 0 || vertical != 0)
+        {
+            direction = new Vector3(horizontal, 0f, vertical).normalized;
+        }else
+        {
+            direction = Vector3.zero;
+            rb.velocity = Vector3.zero; 
+        }
+
+        Vector3 velocity = direction * speed * Time.deltaTime;
+        rb.MovePosition(rb.position + velocity);
+
+        if (direction != Vector3.zero)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(direction, Vector3.up);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+        }
+
+
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+
+            //Destroy(this.gameObject);
+                transform.position = playerSpawn.position;
+                
+
+            
+
+        }
     }
 
     public void UIUpdate()
@@ -58,7 +78,8 @@ public class PlayerController : MonoBehaviour, IUpdates
 
     public void GameplayUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        currentFireRate -= Time.deltaTime;
+        if (Input.GetKeyDown(KeyCode.Mouse0) && currentFireRate < 0)
         {
 
             GameObject projectile = Instantiate(_shooter.projectilePrefab, _shooter.projectileSpawnPoint.position, Quaternion.identity);
@@ -66,9 +87,12 @@ public class PlayerController : MonoBehaviour, IUpdates
             Vector3 directionBullet = transform.forward;
 
             projectile.GetComponent<Rigidbody>().velocity = directionBullet * _shooter.projectileSpeed;
+            currentFireRate = fireRate;
         }
 
-        MouseRotation();
         Move();
     }
+
+
+
 }

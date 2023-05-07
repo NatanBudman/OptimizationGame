@@ -16,7 +16,7 @@ public class SpawnManager : MonoBehaviour, IUpdates
     [Header("Prefabs")] 
     [Space(2)]
     public GameObject Enemies;
-    public GameObject Player;
+    public GameObject player;
 
     [Header("Paramatros")]
     [Space(2)]
@@ -29,7 +29,7 @@ public class SpawnManager : MonoBehaviour, IUpdates
     [SerializeField] private Collider[] _colliders;
     [SerializeField] private LayerMask _layerMask;
     [SerializeField] private float _radius;
-
+    [SerializeField] private Transform spawnPlayer;
     public EnemyPool enemyPool;
 
     int maxEntities = 4;
@@ -51,14 +51,15 @@ public class SpawnManager : MonoBehaviour, IUpdates
 
     public void GameplayUpdate()
     {
-        int countObstacle = Physics.OverlapSphereNonAlloc(transform.position, _radius, _colliders, _layerMask);
-        if (countObstacle < 3)
-        {
-            Spawner();
-        }
-        for (int i = 0; i < countObstacle; i++)
-        { }
 
+         int countObstacle = Physics.OverlapSphereNonAlloc(transform.position, _radius, _colliders, _layerMask);
+         if (countObstacle < 3)
+         {
+             Spawner();
+         }
+         for (int i = 0; i < countObstacle; i++)
+         { }
+        
     }
 
     public void Spawner()
@@ -70,15 +71,21 @@ public class SpawnManager : MonoBehaviour, IUpdates
             var random = Random.Range(0, EnemySpawns.Length);
             Vector3 pos = new Vector3(EnemySpawns[random].transform.position.x,
                 EnemySpawns[random].transform.position.y + 1f, EnemySpawns[random].transform.position.z);
-
-            GameObject instantiatedEnemy = enemyPool.GetPooledEnemy();           
+       
+                GameObject instantiatedEnemy = enemyPool.GetPooledEnemy();
                 instantiatedEnemy.transform.position = pos;
-            
-          
 
+          
             //GameObject InstantiateOBJ = Instantiate(Enemies, pos, Quaternion.identity);
             //  InstantiateOBJ.GetComponent<GrillaMovement>().StartNodo = EnemySpawns[random];
             _CurrentEnemieInstantiate = 0;
         }
+       /* if (player == null)
+        {
+            player = Instantiate(player, spawnPlayer.position, Quaternion.identity);
+        }
+
+        player.transform.position = spawnPlayer.position;
+       */
     }
 }

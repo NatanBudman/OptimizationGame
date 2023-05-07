@@ -51,7 +51,7 @@ GameObject:
   - component: {fileID: 393877206119614626}
   m_Layer: 7
   m_Name: IA
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -164,20 +164,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Movement: {fileID: 9208155894081227682}
   _model: {fileID: 393877206119614626}
-  pool: {fileID: 0}
   _rb: {fileID: 9208155894081227680}
   CooldownMov: 5
   speed: 1
   Weapons: {fileID: 9029089978393945637}
-  maxDectionEntiti: 3
-  angle: 30
-  radius: 50
-  LayerTarget:
-    serializedVersion: 2
-    m_Bits: 64
-  LayerObstacle:
-    serializedVersion: 2
-    m_Bits: 128
 --- !u!114 &9208155894081227682
 MonoBehaviour:
   m_ObjectHideFlags: 0
