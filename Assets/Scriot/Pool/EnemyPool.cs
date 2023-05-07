@@ -17,9 +17,9 @@ public class EnemyPool : MonoBehaviour
 
         for (int i = 0; i < poolSize; i++)
         {
-            GameObject _enemy = Instantiate(enemyPrefab, transform);
-            _enemy.SetActive(false);
-            poolEnemies.Enqueue(_enemy);
+            GameObject enemy = Instantiate(enemyPrefab, transform);
+            enemy.SetActive(false);
+            poolEnemies.Enqueue(enemy);
         }
     }
 
