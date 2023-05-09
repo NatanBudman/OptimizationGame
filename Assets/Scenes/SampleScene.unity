@@ -1389,7 +1389,7 @@ MonoBehaviour:
   speed: 5
   rotationSpeed: 11181.32
   smoothTime: 0.6
-  fireRate: 2
+  fireRate: 1
   playerSpawn: {fileID: 492496370}
   _shooter: {fileID: 159755916}
 --- !u!65 &159755918
@@ -4890,7 +4890,7 @@ MonoBehaviour:
   Enemies: {fileID: 9208155894081227673, guid: b75744d7ad553b849bbc958f2d81b189, type: 3}
   player: {fileID: 159755913}
   EnemyCount: 1
-  CoolwdownEnemieInstantiate: 4
+  CoolwdownEnemieInstantiate: 2
   IsMaxEntities: 0
   _colliders: []
   _layerMask:
