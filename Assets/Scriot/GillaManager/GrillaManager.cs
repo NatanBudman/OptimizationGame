@@ -9,6 +9,7 @@ public class GrillaManager : MonoBehaviour
     public Grilla _grilla;
     public int _width;
     public int _height;
+    public Vector3 _Scale;
     public Transform GrillaStartPos;
     
     // Grilla Created
@@ -30,7 +31,7 @@ public class GrillaManager : MonoBehaviour
 
     public void create()
      {
-         _grilla = new Grilla(_width,_height,GrillaStartPos);
+         _grilla = new Grilla(_width,_height,_Scale,GrillaStartPos);
          
          if (isCustomGrilla)
          {

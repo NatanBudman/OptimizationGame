@@ -7,6 +7,7 @@ public class Grilla
 {
     private int _width;
     private int _height;
+    private Vector3 _Scale;
 
     private Transform startPos;
 
@@ -15,11 +16,11 @@ public class Grilla
     
     private int grillasIndex; 
 
-    public Grilla(int width, int height, Transform start)
+    public Grilla(int width, int height,Vector3 scale, Transform start)
     {
         _width = width;
         _height = height;
-
+        _Scale = scale;
         startPos = start;
     }
 
@@ -45,8 +46,9 @@ public class Grilla
 
             for (int z = 0; z < _height; z++)
             {
-                Vector3 position = new Vector3(startPos.position.x + x, 0, startPos.position.z + z);
+                Vector3 position = new Vector3(startPos.position.x + (x * _Scale.x), 0 , startPos.position.z + (z * _Scale.z));
                 GameObject primitive = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                primitive.transform.localScale = new Vector3(_Scale.x,_Scale.y,_Scale.z);
                 primitive.AddComponent<Nodo>();
                 
                 
