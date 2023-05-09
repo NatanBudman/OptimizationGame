@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1443108391}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.817, z: -0.08}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -49,6 +49,7 @@ GameObject:
   - component: {fileID: 9208155894081227680}
   - component: {fileID: 1885044278}
   - component: {fileID: 393877206119614626}
+  - component: {fileID: 9208155895430783236}
   m_Layer: 7
   m_Name: IA
   m_TagString: Enemy
@@ -222,3 +223,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51b5a4dcbc913af4e808d02dbb0e57de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &9208155895430783236
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9208155894081227673}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa938b0f9cb82a74bb7ebd9418acc932, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Life: 1
+  _currentLife: 0

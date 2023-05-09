@@ -33,7 +33,7 @@ public class SpawnManager : MonoBehaviour, IUpdates
     public EnemyPool enemyPool;
 
     int maxEntities = 4;
-    //[]
+    
     void Start()
     {
         _CurrentEnemies = EnemyCount;
@@ -74,18 +74,12 @@ public class SpawnManager : MonoBehaviour, IUpdates
        
                 GameObject instantiatedEnemy = enemyPool.GetPooledEnemy();
                 instantiatedEnemy.transform.position = pos;
+            instantiatedEnemy.GetComponent<GrillaMovement>().StartNodo = EnemySpawns[random];
 
-          
-            //GameObject InstantiateOBJ = Instantiate(Enemies, pos, Quaternion.identity);
-            //  InstantiateOBJ.GetComponent<GrillaMovement>().StartNodo = EnemySpawns[random];
-            _CurrentEnemieInstantiate = 0;
+        //GameObject InstantiateOBJ = Instantiate(Enemies, pos, Quaternion.identity);
+        //  InstantiateOBJ.GetComponent<GrillaMovement>().StartNodo = EnemySpawns[random];
+        _CurrentEnemieInstantiate = 0;
         }
-       /* if (player == null)
-        {
-            player = Instantiate(player, spawnPlayer.position, Quaternion.identity);
-        }
-
-        player.transform.position = spawnPlayer.position;
-       */
+      
     }
 }

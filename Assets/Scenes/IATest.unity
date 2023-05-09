@@ -49733,9 +49733,17 @@ MonoBehaviour:
   - {fileID: 1692042665}
   playerSpawn: {fileID: 0}
   Enemies: {fileID: 9208155894081227673, guid: b75744d7ad553b849bbc958f2d81b189, type: 3}
-  Player: {fileID: 0}
+  player: {fileID: 0}
   EnemyCount: 0
   CoolwdownEnemieInstantiate: 10
+  IsMaxEntities: 0
+  _colliders: []
+  _layerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  _radius: 0
+  spawnPlayer: {fileID: 0}
+  enemyPool: {fileID: 0}
 --- !u!4 &1361186772
 Transform:
   m_ObjectHideFlags: 0
@@ -78340,14 +78348,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1443108392, guid: b75744d7ad553b849bbc958f2d81b189, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1443108392, guid: b75744d7ad553b849bbc958f2d81b189, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 9029089978393945637, guid: b75744d7ad553b849bbc958f2d81b189, type: 3}
       propertyPath: Pool
       value: 
@@ -78406,22 +78406,3 @@ PrefabInstance:
       objectReference: {fileID: 1136387634}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b75744d7ad553b849bbc958f2d81b189, type: 3}
---- !u!1 &9208155895430783235 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 9208155894081227673, guid: b75744d7ad553b849bbc958f2d81b189, type: 3}
-  m_PrefabInstance: {fileID: 9208155895430783234}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &9208155895430783236
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9208155895430783235}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa938b0f9cb82a74bb7ebd9418acc932, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Life: 1
-  _currentLife: 0
