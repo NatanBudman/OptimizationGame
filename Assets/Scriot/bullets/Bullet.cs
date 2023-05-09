@@ -24,9 +24,15 @@ public class Bullet : MonoBehaviour
 
     [HideInInspector] public BulletPool Pool;
 
-    
-    private void Update()
+
+    public void UIUpdate()
     {
+
+    }
+
+    public void GameplayUpdate()
+    {
+
         Movement();
         currentTime += Time.deltaTime;
 
@@ -36,8 +42,8 @@ public class Bullet : MonoBehaviour
             Pool.ReturnBulletToPool(this.gameObject);
             currentTime = 0;
         }
-        
     }
+
 
     private void Movement()
     {

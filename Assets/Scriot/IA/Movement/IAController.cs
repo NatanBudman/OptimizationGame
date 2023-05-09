@@ -13,7 +13,6 @@ public class IAController : MonoBehaviour,IUpdates
     
     [Header("Movement")]
     [SerializeField] private Rigidbody _rb;
-
     [SerializeField] private float CooldownMov;
     [SerializeField] float speed = 5f;
 
