@@ -4895,7 +4895,7 @@ MonoBehaviour:
   _colliders: []
   _layerMask:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 256
   _radius: 45
   spawnPlayer: {fileID: 492496370}
   enemyPool: {fileID: 752448336}
