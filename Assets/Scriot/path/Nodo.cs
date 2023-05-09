@@ -31,13 +31,6 @@ public class Nodo : MonoBehaviour
     
     int _index = 0;
 
-    private void Start()
-    {
-        GetNeighborNodes();
-
-    }
-    
-
     public void GetNeighborNodes()
     {
          

@@ -26,6 +26,8 @@ public class UpdateManager : MonoBehaviour
     {
         _updateManagerGameplay = new List<UpdateManagerGameplay>(100);
         _updateManagerUI = new List<UpdateManagerUI>(100);
+        
+    
     }
 
     public void AddManagers(UpdateManagerGameplay gameplay)
@@ -48,9 +50,8 @@ public class UpdateManager : MonoBehaviour
 
     private void Start()
     {
-     
-        
         GameplaytimePerFrame = 1f / GameplaFps;
+     //   GameplaynextTime = Time.time + GameplaytimePerFrame;
         UItimePerFrame = 1f / UIFps;
     }
 
@@ -60,10 +61,11 @@ public class UpdateManager : MonoBehaviour
         var UILenght = _updateManagerUI.Count;
 
 
-        if (Time.time < GameplaFps)
-        {
+        if (Time.time >= GameplaynextTime)
+        { 
             for (int i = 0; i < gameplayLenght; i++)
             {
+                Debug.Log("entre");
                 if (_updateManagerGameplay[i] != null)
                 {
                     if (_updateManagerGameplay[i].gameObject.activeInHierarchy)
@@ -79,7 +81,7 @@ public class UpdateManager : MonoBehaviour
         }
 
 
-        if (Time.time < UIFps)
+        if (Time.time >= UInextTime)
         {
             for (int i = 0; i < UILenght; i++)
             {

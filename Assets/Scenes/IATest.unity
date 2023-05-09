@@ -49713,7 +49713,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1361186771
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49733,9 +49733,17 @@ MonoBehaviour:
   - {fileID: 1692042665}
   playerSpawn: {fileID: 0}
   Enemies: {fileID: 9208155894081227673, guid: b75744d7ad553b849bbc958f2d81b189, type: 3}
-  Player: {fileID: 0}
-  EnemyCount: 0
+  player: {fileID: 0}
+  EnemyCount: 2
   CoolwdownEnemieInstantiate: 10
+  IsMaxEntities: 0
+  _colliders: []
+  _layerMask:
+    serializedVersion: 2
+    m_Bits: 256
+  _radius: 50
+  spawnPlayer: {fileID: 0}
+  enemyPool: {fileID: 0}
 --- !u!4 &1361186772
 Transform:
   m_ObjectHideFlags: 0
@@ -49744,7 +49752,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1361186770}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 15.410342, y: -1.7129161, z: -7.4414024}
+  m_LocalPosition: {x: 22.4, y: -1.7129161, z: 2.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -61643,6 +61651,52 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1723817522}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1725465051
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1725465053}
+  - component: {fileID: 1725465052}
+  m_Layer: 0
+  m_Name: PoolEnemy
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1725465052
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1725465051}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8977a4fc274612c46ac10fca9d248d74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyPrefab: {fileID: 9208155894081227673, guid: b75744d7ad553b849bbc958f2d81b189, type: 3}
+  poolSize: 5
+--- !u!4 &1725465053
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1725465051}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 15.873418, y: 3.333327, z: -3.3271017}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1726734169
 GameObject:
   m_ObjectHideFlags: 0
