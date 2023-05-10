@@ -32,6 +32,13 @@ public class Weapons : MonoBehaviour
         return currentFireRate > FireRate;
     }
 
+    public bool playerCanShoot()
+    {
+        if (currentFireRate < FireRate + 1) currentFireRate += Time.deltaTime;
+
+        return currentFireRate > FireRate;
+
+    }
     public void Shoot()
     {
 
@@ -45,7 +52,7 @@ public class Weapons : MonoBehaviour
 
     public void ShootP()
     {
-        if (isCanShoot() && Input.GetKeyDown(KeyCode.Mouse0))
+        if (playerCanShoot())
         {
             SpawnBullet();
 

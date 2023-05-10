@@ -28,13 +28,13 @@ public class PlayerController : MonoBehaviour, IUpdates
     }
 
 
-   
+ 
     private void Move()
     {       
         var horizontal = Input.GetAxis("Horizontal");  // valor de entrada horizontal
         var vertical = Input.GetAxis("Vertical");  // valor de entrada vertical
 
-        //lazy computation
+        //lazy computation, solamente actualizo la direccion si hay entrada de movimiento
         if (horizontal != 0 || vertical != 0)
         {
             direction = new Vector3(horizontal, 0f, vertical).normalized;
@@ -59,10 +59,12 @@ public class PlayerController : MonoBehaviour, IUpdates
 
     void ShootP()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Weapons.playerCanShoot())
         {
-            Weapons.Shoot();
-
+            if (Input.GetKeyDown(KeyCode.Mouse0))
+            {
+                Weapons.ShootP();
+            }
         }
     }
 
@@ -87,9 +89,14 @@ public class PlayerController : MonoBehaviour, IUpdates
     }
 
     public void GameplayUpdate()
-    {     
+    {
+
+
         ShootP();
+
         Move();
+
+
     }
 
     
