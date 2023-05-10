@@ -92,7 +92,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ae46f1503ffbbec4db5adb846d108428, type: 2}
+  - {fileID: 2100000, guid: d5edd160328aa9d4fa8322715ac45b2d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -175,7 +175,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ae46f1503ffbbec4db5adb846d108428, type: 2}
+  - {fileID: 2100000, guid: d5edd160328aa9d4fa8322715ac45b2d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -260,7 +260,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ae46f1503ffbbec4db5adb846d108428, type: 2}
+  - {fileID: 2100000, guid: d5edd160328aa9d4fa8322715ac45b2d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -452,7 +452,7 @@ MonoBehaviour:
   health: {fileID: 2576985288433222758}
   _rb: {fileID: 9208155894081227680}
   CooldownMov: 5
-  speed: 3
+  speed: 50
   Weapons: {fileID: 9029089978393945637}
 --- !u!114 &9208155894081227682
 MonoBehaviour:
