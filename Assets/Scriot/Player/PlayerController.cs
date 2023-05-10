@@ -13,8 +13,8 @@ public class PlayerController : MonoBehaviour, IUpdates
     private float currentFireRate;
     [SerializeField] Transform playerSpawn;
     [Header("Shoot") ]
-    [ SerializeField]private Shooter _shooter;
     private Vector3 direction = Vector3.zero;
+    public Weapons Weapons;
 
 
 
@@ -56,6 +56,14 @@ public class PlayerController : MonoBehaviour, IUpdates
 
     }
 
+    void Shoot()
+    {
+        if (Weapons.isCanShoot() && Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            Weapons.Shoot();
+
+        }
+    }
 
     void OnCollisionEnter(Collision collision)
     {
@@ -79,17 +87,7 @@ public class PlayerController : MonoBehaviour, IUpdates
 
     public void GameplayUpdate()
     {
-        currentFireRate -= Time.deltaTime;
-        if (Input.GetKeyDown(KeyCode.Mouse0) && currentFireRate < 0)
-        {
-
-            GameObject projectile = Instantiate(_shooter.projectilePrefab, _shooter.projectileSpawnPoint.position, Quaternion.identity);
-
-            Vector3 directionBullet = transform.forward;
-
-            projectile.GetComponent<Rigidbody>().velocity = directionBullet * _shooter.projectileSpeed;
-            currentFireRate = fireRate;
-        }
+        Shoot();
 
         Move();
 
