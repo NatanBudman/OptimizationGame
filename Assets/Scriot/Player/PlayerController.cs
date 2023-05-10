@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour, IUpdates
     [SerializeField] Transform playerSpawn;
     [Header("Shoot") ]
     [ SerializeField]private Shooter _shooter;
-    private Vector3 direction = Vector3.zero;  
+    private Vector3 direction = Vector3.zero;
 
 
 
@@ -56,6 +56,7 @@ public class PlayerController : MonoBehaviour, IUpdates
 
     }
 
+
     void OnCollisionEnter(Collision collision)
     {
 
@@ -91,6 +92,8 @@ public class PlayerController : MonoBehaviour, IUpdates
         }
 
         Move();
+
+
     }
 
 

@@ -14,16 +14,13 @@ public class GrillaMovement : MonoBehaviour
         _currentNodo.GetNeighborNodes();
     }
 
-    private void Awake()
-    {
-        GetInitialNodo();
-        _currentNodo = StartNodo;
-    }
+  
 
     private void Start()
     {
+        GetInitialNodo();
+        _currentNodo = StartNodo;
         GetNeighborNodes();
-
     }
 
     private void GetInitialNodo()
