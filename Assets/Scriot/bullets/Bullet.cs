@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour
+public class Bullet : MonoBehaviour, IUpdates
 {
     [SerializeField] private List<int> _layerMasks;
     public Rigidbody _rb;
@@ -22,7 +22,7 @@ public class Bullet : MonoBehaviour
     
     private float currentTime;
 
-    public BulletPool Pool;
+    [HideInInspector] public BulletPool Pool;
 
 
     public void UIUpdate()
@@ -32,7 +32,11 @@ public class Bullet : MonoBehaviour
 
     public void GameplayUpdate()
     {
+     
+    }
 
+    void Update()
+    {
         Movement();
         currentTime += Time.deltaTime;
 
@@ -42,8 +46,9 @@ public class Bullet : MonoBehaviour
             Pool.ReturnBulletToPool(this.gameObject);
             currentTime = 0;
         }
-    }
 
+
+    }
 
     private void Movement()
     {
@@ -59,14 +64,16 @@ public class Bullet : MonoBehaviour
     {
         if (_layerMasks.Contains(collision.gameObject.layer))
         {
-            HealthController heatlh = collision.collider.GetComponent<HealthController>();
-            heatlh.Damage(_Damage);
-            Debug.Log(heatlh._currentLife);
-            currentTime = 0;
+            // HealthController heatlh = collision.collider.GetComponent<HealthController>();
+            //  heatlh.Damage(_Damage);
+            // Debug.Log(heatlh._currentLife);
+            // Pool.ReturnBulletToPool(this.gameObject);
             Pool.ReturnBulletToPool(this.gameObject);
-        }else if (!_layerMasks.Contains(collision.gameObject.layer) && collision.collider.gameObject != this.gameObject)
+
+        }
+        else if (!_layerMasks.Contains(collision.gameObject.layer) && collision.collider.gameObject != this.gameObject)
         {
-            currentTime = 0;
+            Debug.Log(collision.collider.name);
             Pool.ReturnBulletToPool(this.gameObject);
         }
     }

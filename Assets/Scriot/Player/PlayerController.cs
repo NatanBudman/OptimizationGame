@@ -13,8 +13,8 @@ public class PlayerController : MonoBehaviour, IUpdates
     private float currentFireRate;
     [SerializeField] Transform playerSpawn;
     [Header("Shoot") ]
-    [ SerializeField]private Shooter _shooter;
     private Vector3 direction = Vector3.zero;
+    public Weapons Weapons;
 
 
 
@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour, IUpdates
 
         currentFireRate = fireRate;
     }
- 
+
 
  
     private void Move()
@@ -57,10 +57,21 @@ public class PlayerController : MonoBehaviour, IUpdates
     }
 
 
+    void ShootP()
+    {
+        if (Weapons.playerCanShoot())
+        {
+            if (Input.GetKeyDown(KeyCode.Mouse0))
+            {
+                Weapons.ShootP();
+            }
+        }
+    }
+
     void OnCollisionEnter(Collision collision)
     {
 
-        if (collision.gameObject.CompareTag("Enemy"))
+        if (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Proyectil"))
         {
 
             //Destroy(this.gameObject);
@@ -79,23 +90,16 @@ public class PlayerController : MonoBehaviour, IUpdates
 
     public void GameplayUpdate()
     {
-        currentFireRate -= Time.deltaTime;
-        if (Input.GetKeyDown(KeyCode.Mouse0) && currentFireRate < 0)
-        {
 
-            GameObject projectile = Instantiate(_shooter.projectilePrefab, _shooter.projectileSpawnPoint.position, Quaternion.identity);
 
-            Vector3 directionBullet = transform.forward;
-
-            projectile.GetComponent<Rigidbody>().velocity = directionBullet * _shooter.projectileSpeed;
-            currentFireRate = fireRate;
-        }
+        ShootP();
 
         Move();
 
 
     }
 
+    
 
 
 }
