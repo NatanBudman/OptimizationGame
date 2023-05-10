@@ -78427,12 +78427,28 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1443108392, guid: b75744d7ad553b849bbc958f2d81b189, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.534
+      objectReference: {fileID: 0}
+    - target: {fileID: 1443108392, guid: b75744d7ad553b849bbc958f2d81b189, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.412
       objectReference: {fileID: 0}
     - target: {fileID: 1443108392, guid: b75744d7ad553b849bbc958f2d81b189, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1
+      value: 1.598
+      objectReference: {fileID: 0}
+    - target: {fileID: 1008313008260299543, guid: b75744d7ad553b849bbc958f2d81b189, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1008313008260299543, guid: b75744d7ad553b849bbc958f2d81b189, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1008313008260299543, guid: b75744d7ad553b849bbc958f2d81b189, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 9029089978393945637, guid: b75744d7ad553b849bbc958f2d81b189, type: 3}
       propertyPath: Pool
@@ -78485,6 +78501,26 @@ PrefabInstance:
     - target: {fileID: 9208155894081227677, guid: b75744d7ad553b849bbc958f2d81b189, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9208155894081227678, guid: b75744d7ad553b849bbc958f2d81b189, type: 3}
+      propertyPath: m_Size.x
+      value: 1.2880583
+      objectReference: {fileID: 0}
+    - target: {fileID: 9208155894081227678, guid: b75744d7ad553b849bbc958f2d81b189, type: 3}
+      propertyPath: m_Size.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9208155894081227678, guid: b75744d7ad553b849bbc958f2d81b189, type: 3}
+      propertyPath: m_Size.z
+      value: 1.638648
+      objectReference: {fileID: 0}
+    - target: {fileID: 9208155894081227678, guid: b75744d7ad553b849bbc958f2d81b189, type: 3}
+      propertyPath: m_Center.x
+      value: -0.14402914
+      objectReference: {fileID: 0}
+    - target: {fileID: 9208155894081227678, guid: b75744d7ad553b849bbc958f2d81b189, type: 3}
+      propertyPath: m_Center.z
+      value: 0.31932402
       objectReference: {fileID: 0}
     - target: {fileID: 9208155894081227682, guid: b75744d7ad553b849bbc958f2d81b189, type: 3}
       propertyPath: StartNodo
