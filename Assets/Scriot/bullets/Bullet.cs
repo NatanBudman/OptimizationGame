@@ -22,7 +22,7 @@ public class Bullet : MonoBehaviour
     
     private float currentTime;
 
-    [HideInInspector] public BulletPool Pool;
+    public BulletPool Pool;
 
 
     public void UIUpdate()
@@ -62,10 +62,11 @@ public class Bullet : MonoBehaviour
             HealthController heatlh = collision.collider.GetComponent<HealthController>();
             heatlh.Damage(_Damage);
             Debug.Log(heatlh._currentLife);
+            currentTime = 0;
             Pool.ReturnBulletToPool(this.gameObject);
         }else if (!_layerMasks.Contains(collision.gameObject.layer) && collision.collider.gameObject != this.gameObject)
         {
-            Debug.Log(collision.collider.name);
+            currentTime = 0;
             Pool.ReturnBulletToPool(this.gameObject);
         }
     }
