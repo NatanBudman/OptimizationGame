@@ -16,7 +16,6 @@ public class IAController : MonoBehaviour,IUpdates
     [SerializeField] private float CooldownMov;
     [SerializeField] float speed = 5f;
 
-    private float CurrentMove;
     
     [Space]
     [Space]
@@ -28,6 +27,8 @@ public class IAController : MonoBehaviour,IUpdates
     private Vector3 newdirection;
 
     private EnemyPool Pool;
+    private float CurrentMove;
+
     private void Start()
     {
         newdirection = Movement.StartNodo.transform.position;
@@ -45,9 +46,11 @@ public class IAController : MonoBehaviour,IUpdates
 
         Shoot();
     }
+   
 
     void Move()
     {
+
         CurrentMove += Time.deltaTime;
 
         

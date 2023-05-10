@@ -42,10 +42,21 @@ public class Weapons : MonoBehaviour
             currentFireRate = 0;
         }
     }
+
+    public void ShootP()
+    {
+        if (isCanShoot() && Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            SpawnBullet();
+
+            currentFireRate = 0;
+        }
+
+    }
     
     
 // El tipo de bala se define por el tipo de pool que le pongas
-// optimizacion de Precomputation, ya que tanto en Shoot, como en isCanShoot utilizo la funcion del SpawnBullet, en vez de escribir dos veces todo el codigo
+// optimizacion de Precomputation, ya que tanto en Shoot, como en isCanShoot utilizo la funcion del SpawnBullet, como en la IAController. En vez de escribir dos veces todo el codigo
     void SpawnBullet()
     {
         GameObject newBullet = Pool.GetBullet();

@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1569c8582e325774e81ec3efab114738, type: 3}
   m_Name: NormalBullet
   m_EditorClassIdentifier: 
-  Speed: 5
+  Speed: 8
   Damage: 1
-  DisableTimer: 4
+  DisableTimer: 7
