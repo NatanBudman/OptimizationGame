@@ -86,7 +86,7 @@ public class IAController : MonoBehaviour,IUpdates
     void OnCollisionEnter(Collision collision)
     {
      
-        if (collision.gameObject.CompareTag("Proyectil"))
+        if (collision.gameObject.CompareTag("Proyectil") || collision.gameObject.CompareTag("Player"))
         {
             GameObject poolEnemies = GameObject.Find("EnemyPool");
             EnemyPool enemyPool = poolEnemies.GetComponent<EnemyPool>();
