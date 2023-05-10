@@ -85,7 +85,7 @@ public class UpdateManager : MonoBehaviour
         {
             for (int i = 0; i < UILenght; i++)
             {
-                if (_updateManagerGameplay[i] != null)
+                if (_updateManagerUI[i] != null)
                 {
                     if (_updateManagerUI[i].gameObject.activeInHierarchy)
                     {
