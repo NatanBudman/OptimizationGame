@@ -1325,7 +1325,7 @@ GameObject:
   - component: {fileID: 159755914}
   m_Layer: 6
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12897,6 +12897,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _width: 12
   _height: 12
+  _Scale: {x: 0, y: 0, z: 0}
   GrillaStartPos: {fileID: 0}
   isCustomGrilla: 0
   isGrillaVisible: 0
