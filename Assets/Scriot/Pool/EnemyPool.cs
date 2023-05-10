@@ -30,8 +30,9 @@ public class EnemyPool : MonoBehaviour
         if (poolEnemies.Count > 0)
         {
             enemy = poolEnemies.Dequeue();
+            enemy.GetComponent<HealthController>().Revive();
             enemy.SetActive(true);
-           
+
         }
         else
         {

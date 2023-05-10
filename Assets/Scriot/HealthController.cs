@@ -23,8 +23,8 @@ public class HealthController : MonoBehaviour
         return _currentLife <= 0;
     }
 
-    public void RealDeath()
+    public void Revive()
     {
-        Debug.Log("Murio algo");
+        _currentLife = Life;
     }
 }

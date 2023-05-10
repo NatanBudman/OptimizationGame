@@ -24,8 +24,8 @@ public class UpdateManager : MonoBehaviour
 
     private void Awake()
     {
-        _updateManagerGameplay = new List<UpdateManagerGameplay>(100);
-        _updateManagerUI = new List<UpdateManagerUI>(100);
+        _updateManagerGameplay = new List<UpdateManagerGameplay>(1000);
+        _updateManagerUI = new List<UpdateManagerUI>(1000);
         
     
     }
@@ -34,10 +34,12 @@ public class UpdateManager : MonoBehaviour
     {
         _updateManagerGameplay.Add(gameplay);
     }
+    
     public void AddManagers(UpdateManagerUI UI)
     {
         _updateManagerUI.Add(UI);
     }
+    
     public void RemovedManager(UpdateManagerGameplay gameplay)
     {
         _updateManagerGameplay.Remove(gameplay);
@@ -60,41 +62,47 @@ public class UpdateManager : MonoBehaviour
         var gameplayLenght = _updateManagerGameplay.Count;
         var UILenght = _updateManagerUI.Count;
 
-
-        if (Time.time >= GameplaynextTime)
+        GameplaytimePerFrame += Time.deltaTime;
+        
+        if (GameplaytimePerFrame > GameplaynextTime)
         { 
             for (int i = 0; i < gameplayLenght; i++)
             {
-                Debug.Log("entre");
-                if (_updateManagerGameplay[i] != null)
+               
+                if (_updateManagerGameplay[i].gameObject.activeInHierarchy)
                 {
-                    if (_updateManagerGameplay[i].gameObject.activeInHierarchy)
-                    {
-                        _updateManagerGameplay[i].UpdateGameplay();
-                    }
+                    _updateManagerGameplay[i].UpdateGameplay();
+                }
+                else
+                {
+                    RemovedManager(_updateManagerGameplay[i]);
                 }
 
             }
-            
-            GameplaynextTime += GameplaytimePerFrame;
+
+            GameplaytimePerFrame = 0;
 
         }
 
-
-        if (Time.time >= UInextTime)
+        UItimePerFrame += Time.deltaTime;
+        if (UItimePerFrame > UInextTime)
         {
             for (int i = 0; i < UILenght; i++)
             {
-                if (_updateManagerUI[i] != null)
+                
+                if (_updateManagerUI[i].gameObject.activeInHierarchy)
                 {
-                    if (_updateManagerUI[i].gameObject.activeInHierarchy)
-                    {
-                        _updateManagerUI[i].UpdateUI();
-                    }
-
+                    _updateManagerUI[i].UpdateUI();
+                }   else
+                {
+                    RemovedManager(_updateManagerUI[i]);
                 }
+
+                
+                
             }
-            UInextTime += UItimePerFrame;
+
+            UItimePerFrame = 0;
         }
 
         

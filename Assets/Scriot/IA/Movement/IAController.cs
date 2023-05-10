@@ -7,6 +7,7 @@ public class IAController : MonoBehaviour,IUpdates
 {
     [SerializeField] private GrillaMovement Movement;
     [SerializeField] private IAModel _model;
+    [SerializeField] private HealthController health;
     
     [Space]
     [Space]
@@ -45,6 +46,13 @@ public class IAController : MonoBehaviour,IUpdates
         Move();
 
         Shoot();
+
+        if (health.isDeath())
+        {
+            GameObject poolEnemies = GameObject.Find("EnemyPool");
+            EnemyPool enemyPool = poolEnemies.GetComponent<EnemyPool>();
+            enemyPool.ReturnObject(gameObject);
+        }
     }
    
 
@@ -84,16 +92,6 @@ public class IAController : MonoBehaviour,IUpdates
         {
             Weapons.Shoot();
 
-        }
-    }
-    void OnCollisionEnter(Collision collision)
-    {
-     
-        if (collision.gameObject.CompareTag("Proyectil") || collision.gameObject.CompareTag("Player"))
-        {
-            GameObject poolEnemies = GameObject.Find("EnemyPool");
-            EnemyPool enemyPool = poolEnemies.GetComponent<EnemyPool>();
-            enemyPool.ReturnObject(gameObject);
         }
     }
 

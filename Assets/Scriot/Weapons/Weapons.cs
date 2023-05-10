@@ -12,32 +12,13 @@ public class Weapons : MonoBehaviour
 
     public float FireRate;
     private float currentFireRate;
-
-    private void Start()
-    {
-        Pool = FindObjectOfType<BulletPool>();
-    }
+    
 
     public bool isCanShoot()
     {
         if (currentFireRate < FireRate + 1) currentFireRate += Time.deltaTime;
 
-        if (currentFireRate > FireRate)
-        {
-            SpawnBullet();
-            
-            currentFireRate = 0;
-        }
-
         return currentFireRate > FireRate;
-    }
-
-    public bool playerCanShoot()
-    {
-        if (currentFireRate < FireRate + 1) currentFireRate += Time.deltaTime;
-
-        return currentFireRate > FireRate;
-
     }
     public void Shoot()
     {
@@ -49,17 +30,6 @@ public class Weapons : MonoBehaviour
             currentFireRate = 0;
         }
     }
-
-    public void ShootP()
-    {
-        if (playerCanShoot())
-        {
-            SpawnBullet();
-
-            currentFireRate = 0;
-        }
-
-    }
     
     
 // El tipo de bala se define por el tipo de pool que le pongas
@@ -68,6 +38,7 @@ public class Weapons : MonoBehaviour
     {
         GameObject newBullet = Pool.GetBullet();
         newBullet.GetComponent<Bullet>().Pool = Pool;
+        newBullet.GetComponent<UpdateManagerGameplay>().AddManager();
         newBullet.transform.position = FirePoint.position;
         newBullet.transform.rotation = FirePoint.rotation;
     }

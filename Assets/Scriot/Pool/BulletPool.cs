@@ -27,15 +27,23 @@ public class BulletPool : MonoBehaviour
     // Retorna una bala del pool
     public GameObject GetBullet()
     {
+        UpdateManagerGameplay update = null;
         if (bullets.Count == 0)
         {
+            
             GameObject bullet = Instantiate(bulletPrefab, transform);
+            update = bullet.GetComponent<UpdateManagerGameplay>();
+            update.AddManager();
             bullet.SetActive(false);
             bullets.Enqueue(bullet);
         }
 
         GameObject bulletToReturn = bullets.Dequeue();
+
         bulletToReturn.SetActive(true);
+        
+        update = bulletToReturn.GetComponent<UpdateManagerGameplay>();
+        update.AddManager();
 
         return bulletToReturn;
     }

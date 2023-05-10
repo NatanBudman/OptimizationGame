@@ -32,12 +32,8 @@ public class Bullet : MonoBehaviour, IUpdates
 
     public void GameplayUpdate()
     {
-     
-    }
-
-    void Update()
-    {
         Movement();
+        
         currentTime += Time.deltaTime;
 
         if (currentTime >= _DisbaleTimer)
@@ -46,9 +42,8 @@ public class Bullet : MonoBehaviour, IUpdates
             Pool.ReturnBulletToPool(this.gameObject);
             currentTime = 0;
         }
-
-
     }
+
 
     private void Movement()
     {
@@ -64,16 +59,13 @@ public class Bullet : MonoBehaviour, IUpdates
     {
         if (_layerMasks.Contains(collision.gameObject.layer))
         {
-            // HealthController heatlh = collision.collider.GetComponent<HealthController>();
-            //  heatlh.Damage(_Damage);
-            // Debug.Log(heatlh._currentLife);
-            // Pool.ReturnBulletToPool(this.gameObject);
+             HealthController heatlh = collision.collider.GetComponent<HealthController>();
+             heatlh.Damage(_Damage);
             Pool.ReturnBulletToPool(this.gameObject);
 
         }
         else if (!_layerMasks.Contains(collision.gameObject.layer) && collision.collider.gameObject != this.gameObject)
         {
-            Debug.Log(collision.collider.name);
             Pool.ReturnBulletToPool(this.gameObject);
         }
     }

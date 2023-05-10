@@ -4,21 +4,26 @@ using UnityEngine;
 using System;
 public class UpdateManagerGameplay : MonoBehaviour
 {
-    
-    //[SerializeField] Shooter _shooter;
-    //[SerializeField] PlayerController _playerController;
-     private IUpdates[] Updates;
+    private IUpdates[] Updates;
      
-     private UpdateManager _manager;
+     [SerializeField]private UpdateManager _manager;
     void Start()
     {
         _manager = FindObjectOfType<UpdateManager>();
          Updates = GetComponents<IUpdates>();
-         Debug.Log(_manager);
-         _manager.AddManagers(this.gameObject.GetComponent<UpdateManagerGameplay>());
+         AddManager();
     }
 
- 
+    public void AddManager()
+    {
+        if (_manager == null)
+        {
+            _manager = FindObjectOfType<UpdateManager>();
+        }
+        UpdateManagerGameplay update = gameObject.GetComponent<UpdateManagerGameplay>();
+        _manager.AddManagers(update);
+    }
+
     public void UpdateGameplay()
     {
    

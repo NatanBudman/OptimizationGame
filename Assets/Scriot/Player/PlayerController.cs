@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,99 +8,129 @@ public class PlayerController : MonoBehaviour, IUpdates
     [Header("Mov") ]
     public Rigidbody rb;
     public float speed = 5f;
-    [SerializeField] private float rotationSpeed = 180f;
-    public float smoothTime = 0.3f;
     public float fireRate = 1f;
     private float currentFireRate;
+    
+    [Space]
+    [Header("GrillaMovement")]
+    [Space]
+    public GrillaMovement GrillaMovement;
+
+    private Vector3 newPos;
+
+    #region Inputs
+
+    public KeyCode Up;
+    public KeyCode Down;
+    public KeyCode Left;
+    public KeyCode Right;
+    public KeyCode Pause;
+
+    #endregion
+
+    [Space] [Space] 
+    [SerializeField]private GameManager _manager;
+    
     [SerializeField] Transform playerSpawn;
     [Header("Shoot") ]
     private Vector3 direction = Vector3.zero;
     public Weapons Weapons;
 
-
+    [Header("Health")] 
+    public HealthController HealthController;
 
     private void Start()
     {
         //caching, este rigidboy lo utilizo varias veces en la funcion Move
         rb = GetComponent<Rigidbody>();
 
-
+        newPos = transform.position;
+        
         currentFireRate = fireRate;
     }
 
+    private bool isCanMove()
+    {
+        bool isMove = (Vector3.Distance(transform.position,newPos) < 5);
 
- 
-    private void Move()
-    {       
-        var horizontal = Input.GetAxis("Horizontal");  // valor de entrada horizontal
-        var vertical = Input.GetAxis("Vertical");  // valor de entrada vertical
-
-        //lazy computation, solamente actualizo la direccion si hay entrada de movimiento
-        if (horizontal != 0 || vertical != 0)
-        {
-            direction = new Vector3(horizontal, 0f, vertical).normalized;
-        }else
-        {
-            direction = Vector3.zero;
-            rb.velocity = Vector3.zero; 
-        }
-
-        Vector3 velocity = direction * speed * Time.deltaTime;
-        rb.MovePosition(rb.position + velocity);
-
-        if (direction != Vector3.zero)
-        {
-            Quaternion targetRotation = Quaternion.LookRotation(direction, Vector3.up);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
-        }
-
-
+        return isMove;
     }
 
-
-    void ShootP()
+    void MoveGrilla()
     {
-        if (Weapons.playerCanShoot())
+
+        if (isCanMove())
+        {
+            if (GrillaMovement.PlayerGrillaMovement(Up,Down,Left,Right).position != null)
+            {
+                newPos = GrillaMovement.PlayerGrillaMovement(Up,Down,Left,Right).position;
+            }
+        }
+
+        if (transform.position != newPos)
+        {
+            if (newPos != null)
+            {
+                Vector3 direction = (newPos - transform.position).normalized;
+                Vector3 newPosition = transform.position + direction * speed * Time.fixedDeltaTime;
+
+                rb.MovePosition(newPosition);
+            }
+         
+        }
+    }
+ 
+    void Shoot()
+    {
+        if (Weapons.isCanShoot())
         {
             if (Input.GetKeyDown(KeyCode.Mouse0))
             {
-                Weapons.ShootP();
+                Weapons.Shoot();
             }
         }
     }
 
-    void OnCollisionEnter(Collision collision)
-    {
-
-        if (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Proyectil"))
-        {
-
-            //Destroy(this.gameObject);
-                transform.position = playerSpawn.position;
-                
-
-            
-
-        }
-    }
 
     public void UIUpdate()
     {
-       
+      
     }
 
     public void GameplayUpdate()
     {
+        if (Input.GetKey(Pause))
+        {
+            _manager.Pause(true);
+        }
+        
+        Shoot();
 
+        MoveGrilla();
+        //Move();
 
-        ShootP();
-
-        Move();
-
-
+        CheckLife();
     }
 
-    
+    private void CheckLife()
+    {
+        if (HealthController.isDeath())
+        {
+            GrillaMovement._currentNodo = GrillaMovement.StartNodo;
+            newPos = GrillaMovement._currentNodo.transform.position;
 
+            transform.position = new Vector3(playerSpawn.position.x,playerSpawn.position.y + 2.5f,playerSpawn.position.z);
+            
+            HealthController.Revive();
+        }
+    }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.collider.tag == "Enemy" || collision.collider.tag == "Proyectil")
+        {
+            collision.collider.GetComponent<HealthController>().Damage(1);
+            HealthController.Damage(1);
+        }
+    }
 }

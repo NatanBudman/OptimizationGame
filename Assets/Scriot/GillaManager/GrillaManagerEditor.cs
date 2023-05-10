@@ -22,23 +22,4 @@ public class GrillaManagerEditor : Editor
       }
    }
 }
-[CustomEditor(typeof(Nodo)) ]
-public class NodoEditor : Editor
-{
-   public override void OnInspectorGUI()
-   {
-      base.OnInspectorGUI();
 
-      Nodo Nodo = (Nodo)target;
-      
-      if (GUILayout.Button("CreateObject"))
-      {
-         Nodo.CreateObject();
-      }
-      
-      if (GUILayout.Button("DeleteObject"))
-      {
-         Nodo.DeleteObject();
-      }
-   }
-}

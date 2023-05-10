@@ -7,6 +7,7 @@ using Random = UnityEngine.Random;
 
 public class SpawnManager : MonoBehaviour, IUpdates
 {
+    public GameManager Manager;
     [Header("SpawnPoints") ]
     public Nodo[] EnemySpawns;
     public Nodo playerSpawn;
@@ -20,8 +21,11 @@ public class SpawnManager : MonoBehaviour, IUpdates
 
     [Header("Paramatros")]
     [Space(2)]
-    public int EnemyCount;
+    public int EnemyCount = 100;
     private int _CurrentEnemies;
+    [Space] 
+    [SerializeField] private BulletPool EnemyBullets;
+
     [Space(2)]
     public float CoolwdownEnemieInstantiate;
     private float _CurrentEnemieInstantiate;
@@ -40,8 +44,8 @@ public class SpawnManager : MonoBehaviour, IUpdates
 
         _colliders = new Collider[maxEntities];
 
-        GameObject poolEnemies = GameObject.Find("EnemyPool");
-        EnemyPool enemyPool = poolEnemies.GetComponent<EnemyPool>();
+       // GameObject poolEnemies = GameObject.Find("EnemyPool");
+      //  EnemyPool enemyPool = poolEnemies.GetComponent<EnemyPool>();
     }
 
     public void UIUpdate()
@@ -53,12 +57,13 @@ public class SpawnManager : MonoBehaviour, IUpdates
     {
 
          int countObstacle = Physics.OverlapSphereNonAlloc(transform.position, _radius, _colliders, _layerMask);
-         if (countObstacle < 3)
+         
+         if (countObstacle < 3 && EnemyCount >= 0)
          {
+             Manager.GetEnemyCount(EnemyCount);
              Spawner();
          }
-         for (int i = 0; i < countObstacle; i++)
-         { }
+       
         
     }
 
@@ -70,15 +75,25 @@ public class SpawnManager : MonoBehaviour, IUpdates
         {
             var random = Random.Range(0, EnemySpawns.Length);
             Vector3 pos = new Vector3(EnemySpawns[random].transform.position.x,
-                EnemySpawns[random].transform.position.y + 1f, EnemySpawns[random].transform.position.z);
+                EnemySpawns[random].transform.position.y + 2.5f, EnemySpawns[random].transform.position.z);
        
-                GameObject instantiatedEnemy = enemyPool.GetPooledEnemy();
-                instantiatedEnemy.transform.position = pos;
-            instantiatedEnemy.GetComponent<GrillaMovement>().StartNodo = EnemySpawns[random];
-
-        //GameObject InstantiateOBJ = Instantiate(Enemies, pos, Quaternion.identity);
-        //  InstantiateOBJ.GetComponent<GrillaMovement>().StartNodo = EnemySpawns[random];
-        _CurrentEnemieInstantiate = 0;
+            GameObject instantiatedEnemy = enemyPool.GetPooledEnemy();
+            instantiatedEnemy.transform.position = pos;
+            
+            GrillaMovement mov = instantiatedEnemy.GetComponent<GrillaMovement>();
+            mov.StartNodo = EnemySpawns[random];
+            mov._currentNodo = mov.StartNodo;
+            
+            instantiatedEnemy.GetComponent<Weapons>().Pool = EnemyBullets;
+            
+            EnemyCount--;
+            
+            UpdateManagerGameplay update = instantiatedEnemy.GetComponent<UpdateManagerGameplay>();
+            update.AddManager();
+            
+            _CurrentEnemieInstantiate = 0;
+            
+           
         }
       
     }
